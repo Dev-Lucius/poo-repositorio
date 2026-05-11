@@ -52,22 +52,26 @@ public class RemocaoPaciente extends OperacaoClinica {
         };
     }
 
+    // instanceof -> verifica o tipo real do objeto por trás da referência.
+    // Mesmo que o atributo seja um Veiculo (genérico), o Java checa se, naquele momento, o objeto ali dentro é uma AmbulanciaUTI.
+    // Método validar() é o nosso "filto de segurança"
+    // Aqui aplicamos as regras de negócio e checamos os dados
     @Override
     public boolean validar() {
         // Paciente crítico obrigatoriamente precisa de UTI ou médico
-        if (nivelClinico == NivelClinico.CRITICO
-                && !necessitaUtiMovel && !necessitaMedicoAcompanhante) {
-            System.out.println("[VALIDAÇÃO] " + getCodigo() +
-                ": paciente CRÍTICO deve ter UTI móvel ou médico acompanhante.");
+        if (nivelClinico == NivelClinico.CRITICO && !necessitaUtiMovel && !necessitaMedicoAcompanhante) {
+            System.out.println("[VALIDAÇÃO] " + getCodigo() + ": paciente CRÍTICO deve ter UTI móvel ou médico acompanhante.");
             return false;
         }
 
+        // Verificando se o veículo escalado realemente tem a operação exigida
         if (necessitaUtiMovel && !(getVeiculoDesignado() instanceof AmbulanciaUTI)) {
             System.out.println("[VALIDAÇÃO] " + getCodigo() +
                 ": necessita UTI móvel — veículo deve ser AmbulanciaUTI.");
             return false;
         }
 
+        // Verificando o Oxigênio de formas diferentes com base no veículo
         if (necessitaOxigenio) {
             boolean veiculoTemOxigenio = false;
             if (getVeiculoDesignado() instanceof AmbulanciaUTI) {
@@ -82,6 +86,7 @@ public class RemocaoPaciente extends OperacaoClinica {
             }
         }
 
+        // Validação da Equipe a partir do cruzamento do estado de saúde com o pessoal técnico disponível
         if ((nivelClinico == NivelClinico.GRAVE || nivelClinico == NivelClinico.CRITICO)
                 && !equipeContemTipo(TipoProfissional.MEDICO)) {
             System.out.println("[VALIDAÇÃO] " + getCodigo() +
