@@ -1,5 +1,7 @@
 package clinico.model.veiculo;
 
+// Extends -> estabelece que a AmbulanciaSimples é um veículo (Herança)
+// Ou seja, a AmbulanciaSimples herda todos os atributos de veículo
 public class AmbulanciaSimples extends Veiculo {
 
     private boolean possuiMaca;
