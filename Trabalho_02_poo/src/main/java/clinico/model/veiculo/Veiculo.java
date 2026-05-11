@@ -1,5 +1,9 @@
 package clinico.model.veiculo;
 
+// Criação da Classe Veiculo
+// abstract -> veiculo representa um conceito, não um objeto
+// usado para implementar outros tipos de veículos
+// Usamos para implementar o Polimorfismo
 public abstract class Veiculo {
 
     private final String placa;
@@ -26,6 +30,13 @@ public abstract class Veiculo {
 
     @Override
     public String toString() {
-        return modelo + " [" + placa + "] - " + (disponivel ? "Disponível" : "Indisponível");
+        String disponibilidade;
+        if(disponivel){
+            disponibilidade = "Disponivel";
+        } else {
+            disponibilidade = "Indisponivel";
+        }
+        return modelo + "[" + placa + "] - " + disponibilidade;
     }
 }
+
