@@ -10,10 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class OperacaoClinica
+        // Implementando as Interfaces --> Polimorfismo
+        // Na prática, cada subclasse deverá ter métodos que respondam a essas interfaces
+        // Funciona como um contrato !
         implements Custeavel, Auditavel, Priorizavel, Validavel, Rastreavel {
 
     private static final DateTimeFormatter FMT = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-
     private String codigo;
     private String origem;
     private String destino;
@@ -101,10 +103,23 @@ public abstract class OperacaoClinica
         );
     }
 
-    // Métodos auxiliares para subclasses 
+    // Métodos auxiliares para subclasses marcado com Protected
+    // Aqui garantimos as subclasses usem o método para validar sua própria equipe
+    // ao mesmo tempo que privamos o método de ser usado por classes fora do seu pacote 
     protected boolean equipeContemTipo(clinico.enums.TipoProfissional tipo) {
-        return equipe.stream().anyMatch(p -> p.getTipo() == tipo);
+        // for-each -> "para cada profissional p da lista equipe"
+        for(Profissional p : equipe){
+            if(p.getTipo() == tipo) {
+                return true;
+            }
+        }
+        return false;
     }
+    // Versão alternativa do método equipeContemTipo --> StreamAPI
+    // é possível utilizar métodos de Stream para percorrer a lista usando o paradigma da programação funcional
+    /*
+        equipe.stream().anyMatch(p -> p.getTipo() == tipo);
+    */
 
     // Métodos abstratos que cada subclasse implementa 
     public abstract String getTipo();
