@@ -1,4 +1,4 @@
-# 📚 Heranças e Interfaces — Programação Orientada a Objetos em Java
+# 📚 Heranças, Interfaces e Polimorfismo — Programação Orientada a Objetos em Java
 
 > **Objetivo:** Compreender de forma clara e progressiva os conceitos de Herança e Interfaces dentro do paradigma da Programação Orientada a Objetos (POO) em Java, entendendo quando e como aplicar cada um deles.
 
